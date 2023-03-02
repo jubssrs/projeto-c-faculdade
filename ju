@@ -1,0 +1,319 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "gconio.h"
+#include <locale.h>
+#include <windows.h>
+#include <time.h>
+
+int main()
+{
+    setlocale(LC_ALL,"portuguese");
+
+    int MAX_COLUNAS=90;
+    int MAX_LINHAS=25;
+
+    system("MODE con cols=90 lines=25");
+
+    int COR_FUNDO=YELLOW;
+    int COR_LETRA=BLACK;
+
+    textbackground(COR_FUNDO);
+    textcolor(COR_LETRA);
+
+    for(int linha=0; linha<MAX_LINHAS; linha++)
+    {
+        for(int coluna=0; coluna<MAX_COLUNAS; coluna++)
+            printf(" ");
+        printf("\n");
+    }
+        //Nome do jogo
+
+       clrscr();
+
+       gotoxy(7, 8);
+       printf("          ___          _______   ______   .______     ______     ___  ");
+       gotoxy(7, 9);
+       printf("         /   \\        |   ____| /  __  \\  |   _  \\   /      |   /   \\  ");
+       gotoxy(7, 10);
+       printf("        /  ^  \\       |  |__   |  |  |  | |  |_)  | |  ,----'  /  ^  \\   ");
+       gotoxy(7, 11);
+       printf("       /  /_\\  \\      |   __|  |  |  |  | |      /  |  |      /  /_\\  \\  ");
+       gotoxy(7, 12);
+       printf("      /  _____  \\     |  |     |  `--'  | |  |\\  \\  |  `----./  _____  \\ ");
+       gotoxy(7, 13);
+       printf("     /__/     \\__\\    |__|      \\______/  | _| \\__\\ \\______/__/      \\__\\");
+
+
+       // sleep(1);
+        clrscr();
+
+//
+//    for(int coluna=50 ; coluna >= 12 ; coluna--){
+//        gotoxy(12,13);
+//        gotoxy(coluna + 1, 13);
+//        printf("  ");
+//        gotoxy(coluna + 1, 14);
+//        printf("     ");
+//        gotoxy(coluna + 1, 15);
+//        printf("  ");
+//        if(coluna%2==0)
+//        {
+//            printf("                                                             ");
+//            gotoxy(coluna,13);
+//            textbackground(YELLOW);
+//            textcolor(BLACK);
+//            printf("  O ");
+//            gotoxy(coluna,14);
+//            textbackground(YELLOW);
+//            textcolor(BLACK);
+//            printf(" /|\\ ");
+//            gotoxy(coluna,15);
+//            textbackground(YELLOW);
+//            textcolor(BLACK);
+//            printf("  |");
+//            Sleep(50);
+//            textbackground(YELLOW);
+//            textcolor(BLACK);
+//
+//        }
+//        else
+//        {
+//            printf("                                                             ");
+//            gotoxy(coluna,13);
+//            textbackground(YELLOW);
+//            textcolor(BLACK);
+//            printf("  O ");
+//            gotoxy(coluna,14);
+//            textbackground(YELLOW);
+//            textcolor(BLACK);
+//            printf("  | ");
+//            gotoxy(coluna,15);
+//            textbackground(YELLOW);
+//            textcolor(BLACK);
+//            printf(" / \\ ");
+//            Sleep(2);
+//            textbackground(YELLOW);
+//            textcolor(BLACK);
+//        }
+//
+//        clrscr();
+//
+//    }
+
+
+
+    // forca do boneco
+    gotoxy(10,8);
+    textbackground(YELLOW);
+    textcolor(BLACK);
+    printf("____");
+    gotoxy(13,9);
+    textbackground(YELLOW);
+    textcolor(BLACK);
+    printf("|");
+    gotoxy(10,9);
+    textbackground(YELLOW);
+    textcolor(BLACK);
+    printf("|");
+    gotoxy(10,10);
+    textbackground(YELLOW);
+    textcolor(BLACK);
+    printf("|");
+    gotoxy(10,11);
+    textbackground(YELLOW);
+    textcolor(BLACK);
+    printf("|");
+    gotoxy(10,12);
+    textbackground(YELLOW);
+    textcolor(BLACK);
+    printf("|");
+
+
+    // boneco subiu
+    gotoxy(11,10);
+    textbackground(BLUE);
+    textcolor(BLACK);
+    printf("  O ");
+    gotoxy(11,11);
+    textbackground(BLUE);
+    textcolor(BLACK);
+    printf(" /|\\ ");
+    gotoxy(11,12);
+    textbackground(BLUE);
+    textcolor(BLACK);
+    printf(" / \\ ");
+    sleep(2);
+
+    clrscr();
+
+    textbackground(BLUE);
+    textcolor(RED);
+    gotoxy(0,0);
+    for(int linha=0; linha<MAX_LINHAS; linha++)
+    {
+        for(int coluna=0; coluna<MAX_COLUNAS; coluna++)
+        {
+            printf(" ");
+        }
+        printf("\n");
+    }
+
+    //tentativa
+    //forca
+
+    gotoxy(10,8);
+    textbackground(BLUE);
+    textcolor(WHITE);
+    printf("____");
+    gotoxy(13,9);
+    textbackground(BLUE);
+    textcolor(WHITE);
+    printf("|");
+    gotoxy(10,9);
+    textbackground(BLUE);
+    textcolor(WHITE);
+    printf("|");
+    gotoxy(10,10);
+    textbackground(BLUE);
+    textcolor(WHITE);
+    printf("|");
+    gotoxy(10,11);
+    textbackground(BLUE);
+    textcolor(WHITE);
+    printf("|");
+    gotoxy(10,12);
+    textbackground(BLUE);
+    textcolor(WHITE);
+    printf("|");
+
+
+    // boneco subiu
+
+    gotoxy(11,10);
+    textbackground(BLUE);
+    textcolor(BLACK);
+    printf("  O ");
+    gotoxy(11,11);
+    textbackground(BLUE);
+    textcolor(BLACK);
+    printf(" /|\\ ");
+    gotoxy(11,12);
+    textbackground(BLUE);
+    textcolor(BLACK);
+    printf(" / \\ ");
+
+    //código do mota
+
+    gotoxy(25, 6);
+    printf("O que é o que é, é surdo e mudo, mas conta tudo?");
+    gotoxy(70, 0);
+    printf("Vida: ");
+
+    //outro código do mota
+
+    gotoxy(10,13);
+    void tentarPalavra(char palavra[]){
+
+    char t[10];
+    int tam = strlen(palavra);
+    int vidas = 5;
+
+    for(int i = 0; i < tam; i++)
+    {
+        t[i] = '_';
+    }
+
+    while(vidas > 0)
+    {
+        gotoxy(10,13);
+        printf("Digite uma letra:  ");
+        char tentativa = getchar();
+        getchar();
+        gotoxy (10,14);
+
+        int achou = 0;
+
+        for(int i = 0; i < tam; i++)
+        {
+            if(palavra[i] == tentativa)
+            {
+                t[i] = tentativa;
+                achou = 1;
+            }
+        }
+
+        if(achou == 0){
+            vidas--;
+        }else if(achou == 1){
+        vidas++;}
+
+
+
+        printf("%s\n", t);
+    }
+
+         void youwin(){
+
+        clrscr();
+        textcolor(WHITE);
+        gotoxy(13, 1);
+        printf(" _     ___  _    _  _          ____ _   _ ");
+        gotoxy(13, 2);
+        printf(" \\ \\   / / _ \\| |  | | \\ \\        / /   _| \\ | |");
+        gotoxy(13, 3);
+        printf("  \\ \\_/ / |  | | |  | |  \\ \\  /\\  / /  | | |  \\| |");
+        gotoxy(13, 4);
+        printf("   \\   /| |  | | |  | |   \\ \\/  \\/ /   | | | . ` |");
+        gotoxy(13, 5);
+        printf("    | | | |_| | || |    \\  /\\  /   _| || |\\  |");
+        gotoxy(13, 6);
+        printf("    ||  \\_/ \\__/      \\/  \\/   |__|| \\_|");
+}
+
+         void youlose(){
+
+       clrscr();
+       textcolor(RED);
+       gotoxy(19, 10);
+       printf("    ___   ___  __ __  ___   ___  _ _  ___  ___ ");
+       gotoxy(20, 11);
+       printf("  /  _> | . || \\ \\\ || __> | . || | || __>| . \\ ");
+       gotoxy(21, 12);
+       printf(" | <_/\\|   ||     || _>  | | || ' || _> |   /");
+       gotoxy(22, 13);
+       printf("`____/|_|_||_|_|_||___> `___'|__/ |___>|_\\_\\ \n\n\n\n\n\n\n\n\n ");
+       gotoxy(23, 14);
+
+}
+    //int ganhou = 1;
+
+    if(vidas < 0){
+        clrscr();
+        youwin();
+    }else if( vidas == 0){
+        clrscr();
+        youlose();
+    }
+
+//    if(vidas == 0){
+//
+//       clrscr();
+//       gotoxy(19, 10);
+//       printf("    ___   ___  __ __  ___   ___  _ _  ___  ___ ");
+//       gotoxy(20, 11);
+//       printf("  /  _> | . || \\ \\\ || __> | . || | || __>| . \\ ");
+//       gotoxy(21, 12);
+//       printf(" | <_/\\|   ||     || _>  | | || ' || _> |   /");
+//       gotoxy(22, 13);
+//       printf("`____/|_|_||_|_|_||___> `___'|__/ |___>|_\\_\\ \n\n\n\n\n\n\n\n\n ");
+//       gotoxy(23, 14);
+//
+//    }
+
+
+}
+    tentarPalavra("livro");
+    getch();
+    return 0;
+
+}
