@@ -5,33 +5,41 @@
 #include <windows.h>
 #include <time.h>
 
- //TELA YOU WIN
 
+        int MAX_COLUNAS=90;
+        int MAX_LINHAS=25;
+        int COR_FUNDO=GREEN;
+        int COR_LETRA=BLACK;
+        int coluna, linha;
+        int MAX_LINHA_QUADRADO=22, MAX_COLUNA_QUADRADO=80;
 
-        void youwin()
-        {
+//            função montar quadrado
 
-            clrscr();
-            textcolor(BLACK);
-            gotoxy(16, 7);
-            printf(" _ _  ___  _ _   _ _ _  _  _ _ ");
-            gotoxy(16, 8);
-            printf("| | || . || | | | | | || || \\ |");
-            gotoxy(16, 9);
-            printf("\\  /|| || ' | | | |   || ||   | ");
-            gotoxy(16, 10);
-            printf(" |_| `___'`___' |__/_/ |_||_\\_|");
+         void montarQuadrado(){
+            gotoxy(0,15);
+//            for(int coluna=0;coluna<=MAX_COLUNA_QUADRADO;coluna++)
+//                printf("_");
+            coluna=0;
+            while (coluna<=MAX_COLUNA_QUADRADO){
+                printf("_");
+                coluna++;
+            }
+            for(int linha=16;linha<=MAX_LINHA_QUADRADO;linha++){
+                gotoxy(0,linha);printf("|");
+                for(int coluna=1;coluna<=MAX_COLUNA_QUADRADO;coluna++)
+                    printf(" ");
+                gotoxy(MAX_COLUNA_QUADRADO,linha);printf("|");
+            }
+            gotoxy(1,MAX_LINHA_QUADRADO);
+            for(int coluna=1;coluna<MAX_COLUNA_QUADRADO;coluna++)
+                printf("_");
 
         }
+        // função você perdeu
 
-        //TELA GAME OVER
-
-        void youlose()
-        {
-
-
-               clrscr();
-               textcolor(WHITE);
+        void perderJogo (){
+        clrscr();
+               textcolor(BLACK);
                gotoxy(19, 10);
                printf("    ___   ___  __ __  ___   ___  _ _  ___  ___ ");
                gotoxy(20, 11);
@@ -43,108 +51,66 @@
                gotoxy(23, 14);
         }
 
-        //INCREMENTO E DECREMENTO DE VIDAS
+        // função você ganhou
 
-        void tentarPalavra(char palavra[])
-        {
+        void ganharJogo (){
+         clrscr();
+            textcolor(BLACK);
+            gotoxy(16, 7);
+            printf(" _ _  ___  _ _   _ _ _  _  _ _ ");
+            gotoxy(16, 8);
+            printf("| | || . || | | | | | || || \\ |");
+            gotoxy(16, 9);
+            printf("\\  /|| || ' | | | |   || ||   | ");
+            gotoxy(16, 10);
+            printf(" |_| `___'`___' |__/_/ |_||_\\_|");
+        }
 
-            char t[10];
-            int tam = strlen(palavra);
-            int vidas = 5;
 
-            for(int i = 0; i < tam - 1; i++)
-            {
-                t[i] = '_';
-            }
-            t[tam] = '\0';
+        // função atualizar forca
 
-            while(vidas > 0)
-            {
-                gotoxy(70, 0);
-                printf("Vida: %d", vidas);
-                gotoxy(10,13);
-                printf("Digite uma letra: ");
-                gotoxy(28,13);
-                //limpa a letra que estava na tela na ultima vez q digitou
-                printf("                ");
-                gotoxy(28,13);
-                char tentativa = getchar();
-                getchar();
+         void atualizarForca (int quantidadeErros){
+           if(quantidadeErros==1){
+                gotoxy(12,11);
+                textbackground(RED);
+                printf(" ");
+                textbackground(YELLOW);
+           }else if(quantidadeErros==2){
+                gotoxy(14,11);
+                textbackground(RED);
+                printf(" ");
+                textbackground(YELLOW);
+           }else if(quantidadeErros==4){
+                gotoxy(14,12);
+                textbackground(RED);
+                printf(" ");
+                textbackground(YELLOW);
+           }else{
+                gotoxy(13,11);
+                textbackground(RED);
+                printf(" ");
+                textbackground(YELLOW);
+                Sleep(2000);
+                perderJogo();
+           }
 
-                gotoxy (10,14);
-
-                int achou = 0;
-
-                for(int i = 0; i < tam; i++)
-                {
-                    if(palavra[i] == tentativa)
-                    {
-                        t[i] = tentativa;
-                        achou = 1;
-                    }
-                }
-
-                // Função strcmp compare duas strings
-                if(strcmp(t, palavra) == 0){
-                    //quando as 2 strings forem iguais, termina o loop e você ganha.
-                    break;
-                }
-
-                if(achou == 0)
-                {
-                    vidas--;
-                }
-
-                printf("%s\n", t);
-            }
-
-            gotoxy (10,14);
-            printf("%s\n", t);
-
-            gotoxy(20, 20);
-            system("pause");
-
-            if(vidas > 0)
-            {
-                clrscr();
-                textbackground(LIGHTCYAN);
-                youwin();
-            }
-            else
-                //if(vidas == 0)
-            {
-                clrscr();
-                textbackground(BLUE);
-                youlose();
-            }
         }
 
 int main()
 {
-    setlocale(LC_ALL,"portuguese");
+        setlocale(LC_ALL,"portuguese");
+        textbackground(COR_FUNDO);
+        textcolor(COR_LETRA);
 
-    int MAX_COLUNAS=90;
-    int MAX_LINHAS=25;
-
-    system("MODE con cols=90 lines=25");
-
-    int COR_FUNDO=YELLOW;
-    int COR_LETRA=BLACK;
-
-    textbackground(COR_FUNDO);
-    textcolor(COR_LETRA);
-
-    for(int linha=0; linha<MAX_LINHAS; linha++)
-    {
-        for(int coluna=0; coluna<MAX_COLUNAS; coluna++)
+        for(int linha=0;linha<MAX_LINHAS;linha++){
+        for(int coluna=0; coluna<MAX_COLUNAS;coluna++)
             printf(" ");
-        printf("\n");
-    }
-    //Nome do jogo
-
-    clrscr();
-
-    gotoxy(7, 8);
+            printf("\n");
+       }
+       textbackground(YELLOW); textcolor(BLACK);
+       clrscr();
+        //Nome do jogo
+        gotoxy(7, 8);
        printf("          ___          _______   ______   .______     ______     ___  ");
        gotoxy(7, 9);
        printf("         /   \\        |   ____| /  __  \\  |   _  \\   /      |   /   \\  ");
@@ -157,183 +123,180 @@ int main()
        gotoxy(7, 13);
        printf("     /__/     \\__\\    |__|      \\______/  | _| \\__\\ \\______/__/      \\__\\");
 
+       sleep(1);
+       clrscr();
 
-    sleep(1);
-    clrscr();
+
+        for ( int coluna=50 ; coluna >= 12 ; coluna--){
+            gotoxy(12,13);
+            if(coluna%2==0){
+                printf("                                                             ");
+                gotoxy(coluna,13);
+                printf("  O ");
+                gotoxy(coluna,14);
+                printf(" /|\\ ");
+                gotoxy(coluna,15);
+                printf("  |");
+                Sleep(50);
 
 
-    //BONECO ANDANDO
+            }else{
+                printf("                                                             ");
+                gotoxy(coluna,13);
+                printf("  O ");
+                gotoxy(coluna,14);
+                printf("  | ");
+                gotoxy(coluna,15);
+                printf(" / \\ ");
+                Sleep(50);
 
-    for(int coluna=50 ; coluna >= 12 ; coluna--){
-        gotoxy(12,13);
-        gotoxy(coluna + 1, 13);
-        printf("  ");
-        gotoxy(coluna + 1, 14);
-        printf("     ");
-        gotoxy(coluna + 1, 15);
-        printf("  ");
-        if(coluna%2==0)
-        {
-            printf("                                                             ");
-            gotoxy(coluna,13);
-            textbackground(YELLOW);
-            textcolor(BLACK);
-            printf("  O ");
-            gotoxy(coluna,14);
-            textbackground(YELLOW);
-            textcolor(BLACK);
-            printf(" /|\\ ");
-            gotoxy(coluna,15);
-            textbackground(YELLOW);
-            textcolor(BLACK);
-            printf("  |");
-            Sleep(50);
-            textbackground(YELLOW);
-            textcolor(BLACK);
-
+                }
+                 clrscr();
         }
-        else
-        {
-            printf("                                                             ");
-            gotoxy(coluna,13);
-            textbackground(YELLOW);
-            textcolor(BLACK);
-            printf("  O ");
-            gotoxy(coluna,14);
-            textbackground(YELLOW);
-            textcolor(BLACK);
-            printf("  | ");
-            gotoxy(coluna,15);
-            textbackground(YELLOW);
-            textcolor(BLACK);
-            printf(" / \\ ");
-            Sleep(2);
-            textbackground(YELLOW);
-            textcolor(BLACK);
-        }
+        // forca do boneco
 
-        clrscr();
-
-    }
+        gotoxy(0,0);
+        // regras
+        printf("Regras:\n");
+        printf("1- Não usar maiúsculas\n");
+        printf("2- Não usar acentos\n");
+        printf("3- Perde ao errar 5 vezes\n");
+        printf("4- Ganha ao acertar todas as perguntas\n");
+        gotoxy(10,8);
+        printf("__");
+        gotoxy(13,9);
+        printf("|");
+        gotoxy(10,9);
+        printf("|");
+        gotoxy(10,10);
+        printf("|");
+        gotoxy(10,11);
+        printf("|");
+        gotoxy(10,12);
+        printf("|");
 
 
-
-//    // forca do boneco
-//    gotoxy(10,8);
-//    textbackground(YELLOW);
-//    textcolor(BLACK);
-//    printf("__");
-//    gotoxy(13,9);
-//    textbackground(YELLOW);
-//    textcolor(BLACK);
-//    printf("|");
-//    gotoxy(10,9);
-//    textbackground(YELLOW);
-//    textcolor(BLACK);
-//    printf("|");
-//    gotoxy(10,10);
-//    textbackground(YELLOW);
-//    textcolor(BLACK);
-//    printf("|");
-//    gotoxy(10,11);
-//    textbackground(YELLOW);
-//    textcolor(BLACK);
-//    printf("|");
-//    gotoxy(10,12);
-//    textbackground(YELLOW);
-//    textcolor(BLACK);
-//    printf("|");
-
-
-    // boneco subiu
-
-//    gotoxy(11,10);
-//    textbackground(YELLOW);
-//    textcolor(BLACK);
-//    printf("  O ");
-//    gotoxy(11,11);
-//    textbackground(YELLOW);
-//    textcolor(BLACK);
-//    printf(" /|\\ ");
-//    gotoxy(11,12);
-//    textbackground(YELLOW);
-//    textcolor(BLACK);
-//    printf(" / \\ ");
-//    Sleep(2);
-
-    //clrscr();
-
-    textbackground(YELLOW);
-    textcolor(RED);
-    gotoxy(0,0);
-    for(int linha=0; linha<MAX_LINHAS; linha++)
-    {
-        for(int coluna=0; coluna<MAX_COLUNAS; coluna++)
-        {
-            printf(" ");
-        }
-        printf("\n");
-    }
-
-    //FORCA
-
-    gotoxy(10,8);
-    textbackground(YELLOW);
-    textcolor(BLACK);
-    printf("____");
-    gotoxy(13,9);
-    textbackground(YELLOW);
-    textcolor(BLACK);
-    printf("|");
-    gotoxy(10,9);
-    textbackground(YELLOW);
-    textcolor(BLACK);
-    printf("|");
-    gotoxy(10,10);
-    textbackground(YELLOW);
-    textcolor(BLACK);
-    printf("|");
-    gotoxy(10,11);
-    textbackground(YELLOW);
-    textcolor(BLACK);
-    printf("|");
-    gotoxy(10,12);
-    textbackground(YELLOW);
-    textcolor(BLACK);
-    printf("|");
-
-
-    // BONECO SUBIU PARA A FORCA
-
-    gotoxy(11,10);
-    textbackground(YELLOW);
-    textcolor(BLACK);
-    printf("  O ");
-    gotoxy(11,11);
-    textbackground(YELLOW);
-    textcolor(BLACK);
-    printf(" /|\\ ");
-    gotoxy(11,12);
-    textbackground(YELLOW);
-    textcolor(BLACK);
-    printf(" / \\ ");
-
-    //PERGUNTA
-
-    gotoxy(25, 6);
-    printf("O que é o que é, é surdo e mudo, mas conta tudo?");
-
-
-    //PALAVRA PARA ACERTAR 1
-
-    gotoxy(10,13);
-
-    tentarPalavra("livro");
+        // boneco subiu
+         gotoxy(11,10);
+         printf("  O ");
+         gotoxy(11,11);
+         printf(" /|\\ ");
+         gotoxy(11,12);
+         printf(" / \\ ");
 
 
 
+        textcolor(RED);
+        montarQuadrado();
 
-    getch();
+
+
+        int erros=0,resultado;
+        char resposta[20];
+
+       //pergunta 1
+        gotoxy(2,16);
+        printf("O que é o que é? Quanto mais se tira mais aumenta.\n");
+
+        do {
+            gotoxy(2,18);
+            gets(resposta);
+            resultado=strcmp(resposta,"buraco");
+            if(resultado!=0){
+                erros++;
+                atualizarForca(erros);
+                if(erros==5)
+                    return 0;
+            }
+            gotoxy(2,18);
+            printf("                    ");
+        }while(resultado!=0);
+        montarQuadrado();
+
+        //pergunta 2
+
+        gotoxy(2,16);
+        printf("O que é o que é? É feito para andar e não anda.\n");
+
+        do {
+            gotoxy(2,18);
+            gets(resposta);
+            resultado=strcmp(resposta,"rua");
+            if(resultado!=0){
+                erros++;
+                atualizarForca(erros);
+                if(erros==5)
+                    return 0;
+            }
+            gotoxy(2,18);
+            printf("                    ");
+        }while(resultado!=0);
+        montarQuadrado();
+
+        //pergunta 3
+
+        gotoxy(2,16);
+        printf("O que é o que é? Dá muitas voltas e não sai do lugar.\n");
+
+        do {
+            gotoxy(2,18);
+            gets(resposta);
+            resultado=strcmp(resposta,"relogio");
+            if(resultado!=0){
+                erros++;
+                atualizarForca(erros);
+                if(erros==5)
+                    return 0;
+            }
+            gotoxy(2,18);
+            printf("                    ");
+        }while(resultado!=0);
+        montarQuadrado();
+
+
+          //pergunta 4
+
+        gotoxy(2,16);
+        printf("O que é o que é? Não se come, mas é bom pra comer.\n");
+
+        do {
+            gotoxy(2,18);
+            gets(resposta);
+            resultado=strcmp(resposta,"talher");
+            if(resultado!=0){
+                erros++;
+                atualizarForca(erros);
+                if(erros==5)
+                    return 0;
+            }
+            gotoxy(2,18);
+            printf("                    ");
+        }while(resultado!=0);
+        montarQuadrado();
+
+         //pergunta 5
+
+        gotoxy(2,16);
+        printf("O que é o que é? Tem cinco dedos, mas não tem unha.\n");
+
+        do {
+            gotoxy(2,18);
+            gets(resposta);
+            resultado=strcmp(resposta,"luva");
+            if(resultado!=0){
+                erros++;
+                atualizarForca(erros);
+                if(erros==5)
+                    return 0;
+            }
+            gotoxy(2,18);
+            printf("                    ");
+        }while(resultado!=0);
+        montarQuadrado();
+        ganharJogo ();
+        gotoxy(0,25);
+
+
     return 0;
-
 }
+
